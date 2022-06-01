@@ -1,0 +1,43 @@
+1.Launch Red-hat Linux Ec2 instance
+
+2.Update your EC2 instance
+yum update
+
+3.Add a third party repo named EPEL
+#rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
+4.Install ansbile
+yum install ansible
+
+ansible --version
+
+Configuration
+
+1.Create a new user for ansible admnistration and grant admin access to user(Master and Slave)
+
+useradd ansadmin
+passwd ansadmin
+
+2.Enable user login on all ec2 instances(Master and Slave)
+
+vi /etc/ssh/sshd_config
+
+make sure password authentication yes in all server
+
+service sshd restart
+
+3.Login as ansadmin user on master and generate ssh key (Master)
+
+ssh-keygen
+
+4.Copy keys to target server (Master)
+
+ssh-copy-id <targer-server>
+
+5.Update target server info on /etc/ansible/hosts file (Master)
+
+echo "10.10.10.x" > /etc/ansible/hosts
+
+6.Run ansible command as ansadmin user it should be successfull(Master)
+
+ansible all -m ping

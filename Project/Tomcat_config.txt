@@ -1,0 +1,66 @@
+1.Download tar.gz of tomcat 8
+
+wget link_address
+
+2.Unzip the file
+
+tar -zvxf apache-tomcat-8.5.79
+
+3.Change directory to apache-tomcat-8.5.79 and then to bin
+
+cd apache-tomcat-8.5.79
+
+cd bin
+
+4.To check running tomcat
+
+ps -ef | grep tomcat
+
+5.Changing the permission  
+
+chmod +x startup.sh
+
+chmod +x shutdown.sh
+
+6.Create softlink
+
+ln -s /opt/apache-tomcat-8.5.79/bin/startup.sh /usr/bin/tomcatup
+
+ln -s /opt/apache-tomcat-8.5.79/bin/shutdown.sh /usr/bin/tomcatdown
+
+7.Start the tomcat
+tomcatup
+
+8.Stop the tomcat
+
+tomcatdown
+
+9.#search for context.xml
+find / -name context.xml
+
+10.comment in context.xml
+above command gives 3 context.xml files. comment () Valve ClassName field on files which are under webapp directory. After that restart tomcat services to effect these changes. At the time of writing this lecture below 2 files are updated.
+/opt/tomcat/webapps/host-manager/META-INF/context.xml
+/opt/tomcat/webapps/manager/META-INF/context.xml
+
+# Restart tomcat services
+tomcatdown  
+tomcatup
+
+
+11. update users file under conf in tomcat-users.xml
+
+ <role rolename="manager-gui"/>
+ <role rolename="manager-script"/>
+ <role rolename="manager-jmx"/>
+ <role rolename="manager-status"/>
+ <user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+ <user username="deployer" password="deployer" roles="manager-script"/>
+ <user username="tomcat" password="s3cret" roles="manager-gui"/>
+
+12.See the username and password in tomcat-users.xml
+
+In roles as manager 
+
+username:tomcat
+password:s3cret

@@ -1,0 +1,49 @@
+1. Launch Red-Hat Linux Ec2 instance
+
+2. Install java and set path
+
+yum install java-1.8*
+
+java -version
+
+ls -a 
+
+Open ---> vi .bash_profile
+
+JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.161-0.b14.el7_4.x86_64/
+
+PATH=$PATH:$JAVA_HOME:$HOME/bin
+
+export PATH
+
+3. Download Jenkins on to EC2 instance
+
+yum install wget -y
+
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+4. Install jenkins
+
+yum install jenkins
+
+4. Start Jenkins Service
+
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
+service jenkins start
+
+
+Configuration
+
+1.Open default port 8080 in security group using edit inbound rules
+
+2.Login to jenkins console
+public_ip:8080
+ 
+add java path in jenkins global configuration
+find / -name javac
+
+Install git
+yum install git -y
